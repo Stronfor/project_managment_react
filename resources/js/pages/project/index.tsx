@@ -1,8 +1,11 @@
 import { Head, Link } from '@inertiajs/react';
 // import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
+import { MyPagination } from '@/components/my-pagination';
 import AppLayout from '@/layouts/app-layout';
+
 // import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
+import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from '@/constants';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -36,7 +39,12 @@ interface IProjects {
         createdBy: IUserBy
         updatedBy: IUserBy
     }[]
-    meta: object
+    meta: {links: {
+        active: boolean
+        label: string
+        page: number | null
+        url: string | null
+    }[]}
     links: ILinks
 }
 
@@ -66,14 +74,21 @@ console.log('projects ', projects);
                     </thead>
                     <tbody>
                         {projects.data.map(project => (
-                            <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
+                            <tr key={project.id} className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-[12px] sm:text-sm'>
                                 <td className='px-3 py-2'>{project.id}</td>
                                 <td className='px-3 py-2'>
                                     <img className='bg-amber-200 rounded-xl'/*  */
                                     /* src={`http://picsum.photos/seed/${project.id}/80`}  */src={project.image_path} alt="" />
                                 </td>
                                 <td className='px-3 py-2'>{project.name}</td>
-                                <td className='px-3 py-2'>{project.status}</td>
+                                <td className='px-3 py-2'>
+                                    <span className={
+                                        "px-2 py-2 rounded text-white font-bold " +
+                                        PROJECT_STATUS_CLASS_MAP[project.status]
+                                    }>
+                                        {PROJECT_STATUS_TEXT_MAP[project.status]}
+                                    </span>
+                                </td>
                                 <td className='px-3 py-2 text-nowrap'>{project.created_at}</td>
                                 <td className='px-3 py-2 text-nowrap'>{project.due_date}</td>
                                 <td className='px-3 py-2'>{project.createdBy.name}</td>
@@ -92,7 +107,7 @@ console.log('projects ', projects);
                     </tbody>
                 </table>
 
-
+                <MyPagination links={projects.meta.links}/>
 
             </div>
         </AppLayout>
