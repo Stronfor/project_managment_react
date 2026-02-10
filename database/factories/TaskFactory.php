@@ -21,7 +21,7 @@ class TaskFactory extends Factory
             'description' => fake()->paragraph(),
             'due_date' => fake()->dateTimeBetween('now', '+1 year'),
             'status' => fake()->randomElement(['pending', 'in_progress', 'completed']),
-            'image_path' => fake()->imageUrl(),
+            'image_path' => "http://picsum.photos/seed/" . random_int(0, 1000) . "/50",
             'priority' => fake()->randomElement(['low', 'medium', 'high']),
             'created_by' => 1 /* \App\Models\User::factory() */,
             'updated_by' => 1 /* \App\Models\User::factory() */,
