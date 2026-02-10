@@ -1,3 +1,4 @@
+import {memo} from 'react'
 import {
   Pagination,
   PaginationContent,
@@ -16,7 +17,7 @@ interface MyPaginationProps {
     }[]
 }
 
-export function MyPagination({links}: MyPaginationProps) {
+export const MyPagination = memo(({links}: MyPaginationProps) => {
   return (
     <Pagination>
       <PaginationContent>
@@ -42,4 +43,4 @@ export function MyPagination({links}: MyPaginationProps) {
       </PaginationContent>
     </Pagination>
   )
-}
+});
