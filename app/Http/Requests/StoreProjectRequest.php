@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProjectRequest extends FormRequest
 {
@@ -11,7 +12,11 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        // return false;
+        // return true;
+
+        // return auth()->check(); // only logged-in users
+         return $this->user() !== null; // alternative way to check if user is logged in
     }
 
     /**
@@ -22,7 +27,11 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'image' => ['nullable', 'image', 'max:2048'],
+            'name' => ['required', 'max:255'],
+            'description' => ['string'],
+            'due_date' => ['nullable', 'date'],
+            'status' => ['required', Rule::in(['pending', 'in_progress', 'completed'])],
         ];
     }
 }

@@ -71,10 +71,23 @@ export default memo(function TableComponent({items, queryParams = null, tableTyp
                 >
                     <tr className='text-nowrap'>
                         {TABLE_FIELDS.map(field => (
-                            <TableHeading key={field.key} sortable={field.sortable} sortChanged={() => sortChanged(field.key)} name={field.key} sort_field={params.sort_field}>
+                            <TableHeading key={field.key}
+                                sortable={field.sortable}
+                                sortChanged={() => sortChanged(field.key)}
+                                name={field.key}
+                                sort_field={params.sort_field}
+                            >
                                 {field.label}
                             </TableHeading>
                         ))}
+                        {tableType === 'task' ? <TableHeading
+                            sortable={false}
+                            name="project_name"
+                            sort_field={params.sort_field}
+                            sortChanged={() => {}}
+                        >
+                            Project Name
+                        </TableHeading> : null }
                     </tr>
 
                     <tr className='text-nowrap'>
@@ -107,6 +120,7 @@ export default memo(function TableComponent({items, queryParams = null, tableTyp
                         <th className='p-3'></th>
                         <th className='p-3'></th>
                         <th className='p-3 text-right'></th>
+                        { tableType === 'task' ? <th className='p-3'></th> : null }
                     </tr>
                 </thead>
                 <tbody>
@@ -149,6 +163,7 @@ export default memo(function TableComponent({items, queryParams = null, tableTyp
                                     Delete
                                 </Link>
                             </td>
+                            { tableType === 'task' ? <td className='px-3 py-2'>{ item.project.name }</td> : null }
                         </tr>
                     ))}
                 </tbody>

@@ -44,7 +44,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('project/create');
     }
 
     /**
@@ -52,7 +52,14 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $date = $request->validated();
+        dd($date);
+
+
+        // $project = Project::create($request->validated());
+
+        // return redirect()->route('project.show', $project)->with('success', 'Project created successfully.');
+
     }
 
     /**
