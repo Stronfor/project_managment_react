@@ -63,6 +63,11 @@ export default memo(function TableComponent({items, queryParams = null, tableTyp
         }
     }, [params])
 
+    const handleDelete = (id: number) => {
+        if(!confirm('Are you sure you want to delete this item?')) return;
+        router.delete(`/${tableType}/${id}`, {preserveState: true});
+    }
+
     return (
         <>
             <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
@@ -128,7 +133,7 @@ export default memo(function TableComponent({items, queryParams = null, tableTyp
                         <tr key={item.id} className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-[12px] sm:text-sm'>
                             <td className='px-3 py-2'>{item.id}</td>
                             <td className='px-3 py-2'>
-                                <img className='bg-amber-200 rounded-xl'
+                                <img className='bg-amber-200 rounded-xl max-w-14 h-14'
                                 src={item.image_path} alt="" />
                             </td>
                             <td className='px-3 py-2 text-nowrap hover:underline font-bold'>
@@ -151,17 +156,17 @@ export default memo(function TableComponent({items, queryParams = null, tableTyp
                             <td className='px-3 py-2'>{item.createdBy.name}</td>
                             <td className='px-3 py-2'>
                                 <Link
-                                    href={`${tableType}.edit/${item.id}`}
+                                    href={`/${tableType}/${item.id}/edit`}
                                     className='font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1'
                                 >
                                     Edit
                                 </Link>
-                                <Link
-                                    href={`${tableType}.destroy/${item.id}`}
+                                <button
+                                    onClick={() => handleDelete(item.id)}
                                     className='font-medium text-red-600 dark:text-red-500 hover:underline mx-1'
                                 >
                                     Delete
-                                </Link>
+                                </button>
                             </td>
                             { tableType === 'task' ? <td className='px-3 py-2'>{ item.project.name }</td> : null }
                         </tr>

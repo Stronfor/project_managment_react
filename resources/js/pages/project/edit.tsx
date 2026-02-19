@@ -13,22 +13,22 @@ import type { BreadcrumbItem } from '@/types';
 
 
 
-const breadcrumbs: BreadcrumbItem[] = [
+const ProjectEdit = ({project}) => {
+
+    const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Create New Project',
-        href: 'project.create',
+        title: 'Edit Project - ' + project.name,
+        href: 'project.edit',
     },
 ];
 
-const ProjectCreate = () => {
-
     const inputRef = useRef<HTMLInputElement>(null);
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, errors, put } = useForm({
         image: null,
-        name: '',
-        status: 'pending',
-        description: '',
-        due_date: ''
+        name: project.name || '',
+        status: project.status ||  'pending',
+        description: project.description || '',
+        due_date: project.due_date || ''
     });
 
     useEffect(() => {
@@ -37,17 +37,27 @@ const ProjectCreate = () => {
 
     const onSubmitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        post('/project');
+        put(`/project/${project.id}`);
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Create Project" />
+            <Head title="Edit Project" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <form
                     onSubmit={onSubmitHandle}
                     className="p-10 sm:rounded-lg sm:p-8 m-5 bg-sidebar"
                 >
+
+                    {project.image_path &&
+                        <div>
+                            <img
+                                src={project.image_path.startsWith('http') ? project.image_path : `/${project.image_path}`}
+                                alt="proj_img"
+                                className="h-64 w-full object-cover"
+                            />
+                        </div>
+                    }
                     <div className='mb-4'>
                         <Label htmlFor="input-img">Project Image</Label>
                         <Input className='mt-2 w-full block'
@@ -111,7 +121,7 @@ const ProjectCreate = () => {
 
                     <div className='text-right'>
                         <Button className='m-3 p-3 font-bold hover:bg-emerald-200 transition-colors duration-300' type="submit">
-                            Create Project
+                            Update Project
                         </Button>
                         <Button
                             className='m-3 p-3 font-bold hover:bg-red-300 transition-colors duration-300'
@@ -128,4 +138,4 @@ const ProjectCreate = () => {
     );
 };
 
-export default ProjectCreate;
+export default ProjectEdit;

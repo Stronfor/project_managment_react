@@ -13,9 +13,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function ProjectIndex({
     projects,
     queryParams = null,
+    success
 }: {
     projects: IProjects;
     queryParams: { name?: string; status?: string } | null;
+    success: string
 }) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -26,7 +28,9 @@ export default function ProjectIndex({
                         Add new
                     </Link>
                 </div>
-
+                {success &&
+                    <div className='bg-emerald-500 py-2 px-4 rounded text-white'>{success}</div>
+                }
                 <TableComponent
                     items={projects}
                     queryParams={queryParams}

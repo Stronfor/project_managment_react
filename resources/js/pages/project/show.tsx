@@ -44,7 +44,7 @@ export default function ProjectShow({
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="min-h-screen flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                     <img
-                        src={project.image_path}
+                        src={project.image_path && project.image_path.startsWith('http') ? project.image_path : `/${project.image_path}`}
                         alt="proj_img"
                         className="h-64 w-full object-cover"
                     />
