@@ -168,7 +168,7 @@ export default memo(function TableComponent({items, queryParams = null, tableTyp
                                     Delete
                                 </button>
                             </td>
-                            { tableType === 'task' ? <td className='px-3 py-2'>{ item.project.name }</td> : null }
+                            { tableType === 'task' && ('project' in item) ? <td className='px-3 py-2'>{ item.project.name }</td> : null }
                         </tr>
                     ))}
                 </tbody>

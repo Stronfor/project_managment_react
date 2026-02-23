@@ -1,4 +1,4 @@
-import type { IProjects } from "./project";
+import type { IProject } from "./project";
 
 interface ILinks {
     first: string
@@ -21,7 +21,7 @@ export interface ITasks {
         created_at: string
         due_date: string
         status: "completed" | "in_progress" | "pending"
-        project: IProjects
+        project: IProject
         image_path: string
         createdBy: IUserBy
         updatedBy: IUserBy

@@ -1,4 +1,4 @@
-import { Head, Link, useForm, router } from '@inertiajs/react';
+import { Head, useForm, router } from '@inertiajs/react';
 import { useRef, useEffect } from "react";
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -9,11 +9,11 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Textarea } from "@/components/ui/textarea";
 
 import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem, IProject } from '@/types';
 
 
 
-const ProjectEdit = ({project}) => {
+const ProjectEdit = ({project}: {project: IProject}) => {
 
     const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -24,7 +24,7 @@ const ProjectEdit = ({project}) => {
 
     const inputRef = useRef<HTMLInputElement>(null);
     const { data, setData, errors, put } = useForm({
-        image: null,
+        image: null as File | null,
         name: project.name || '',
         status: project.status ||  'pending',
         description: project.description || '',
@@ -64,7 +64,7 @@ const ProjectEdit = ({project}) => {
                             id="input-img"
                             type="file"
                             name='image'
-                            onChange={e => setData('image', e.target.files[0])}
+                            onChange={e => e.target.files && setData('image', e.target.files[0])}
                         />
                         <InputError message={errors.image} className='mt-2' />
                     </div>
@@ -93,7 +93,7 @@ const ProjectEdit = ({project}) => {
 
                     <div className='mb-4'>
                         <Label htmlFor="input-status">Project Status</Label>
-                        <Select onValueChange={value => setData('status', value)} value={data.status}>
+                        <Select onValueChange={value => setData('status', value as IProject['status'])} value={data.status}>
                             <SelectTrigger id='input-status' className="w-full mt-2">
                                 <SelectValue placeholder="Select Status" />
                             </SelectTrigger>

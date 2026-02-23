@@ -1,4 +1,4 @@
-import { Head, Link, useForm, router } from '@inertiajs/react';
+import { Head, useForm, router } from '@inertiajs/react';
 import { useRef, useEffect } from "react";
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -23,8 +23,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 const ProjectCreate = () => {
 
     const inputRef = useRef<HTMLInputElement>(null);
-    const { data, setData, post, processing, errors, reset } = useForm({
-        image: null,
+    const { data, setData, post, errors } = useForm({
+        image: null as File | null,
         name: '',
         status: 'pending',
         description: '',
@@ -54,7 +54,7 @@ const ProjectCreate = () => {
                             id="input-img"
                             type="file"
                             name='image'
-                            onChange={e => setData('image', e.target.files[0])}
+                            onChange={e => e.target.files && setData('image', e.target.files[0])}
                         />
                         <InputError message={errors.image} className='mt-2' />
                     </div>

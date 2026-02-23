@@ -11,18 +11,20 @@ interface IUserBy {
     id: number
 }
 
+export interface IProject {
+    id: number
+    name: string
+    description: string
+    created_at: string
+    due_date: string
+    status: "completed" | "in_progress" | "pending"
+    image_path: string
+    createdBy: IUserBy
+    updatedBy: IUserBy
+}
+
 export interface IProjects {
-    data: {
-        id: number
-        name: string
-        description: string
-        created_at: string
-        due_date: string
-        status: "completed" | "in_progress" | "pending"
-        image_path: string
-        createdBy: IUserBy
-        updatedBy: IUserBy
-    }[]
+    data:IProject[]
     meta: {links: {
         active: boolean
         label: string
