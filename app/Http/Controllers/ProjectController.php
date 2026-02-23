@@ -74,8 +74,6 @@ class ProjectController extends Controller
             //throw $th;
             return to_route('project.index')->with('success', 'Project Not creqted');
         }
-
-
     }
 
     /**
