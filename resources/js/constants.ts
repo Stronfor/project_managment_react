@@ -33,3 +33,16 @@ export const TASK_PRIORITY_TEXT_MAP = {
     medium: 'Medium',
     low: 'Low',
 };
+
+export const USER_STATUS_CLASS_MAP = {
+    high: 'bg-red-500',
+    medium: 'bg-yellow-500',
+    low: 'bg-green-500',
+};
+
+export const USER_STATUS_TEXT_MAP = {
+    high: 'High',
+    medium: 'Medium',
+    low: 'Low',
+};
+
