@@ -13,19 +13,23 @@ interface IUserBy {
     id: number
 }
 
+export interface ITask {
+    id: number
+    name: string
+    description: string
+    created_at: string
+    due_date: string
+    status: "completed" | "in_progress" | "pending"
+    project: IProject
+    image_path: string
+    createdBy: IUserBy
+    updatedBy: IUserBy
+    priority: "low" | "medium" | "high"
+    assignedUser: IUserBy | null
+}
+
 export interface ITasks {
-    data: {
-        id: number
-        name: string
-        description: string
-        created_at: string
-        due_date: string
-        status: "completed" | "in_progress" | "pending"
-        project: IProject
-        image_path: string
-        createdBy: IUserBy
-        updatedBy: IUserBy
-    }[]
+    data: ITask[]
     meta: {links: {
         active: boolean
         label: string

@@ -134,14 +134,17 @@ export default memo(function TableComponent({items, queryParams = null, tableTyp
                             <td className='px-3 py-2'>{item.id}</td>
                             <td className='px-3 py-2'>
                                 <img className='bg-amber-200 rounded-xl max-w-14 h-14'
-                                src={item.image_path} alt="" />
+                                    src={item.image_path &&
+                                        item.image_path.startsWith('http')
+                                            ? item.image_path
+                                            : `/${item.image_path}`}
+                                    alt=""
+                                />
                             </td>
                             <td className='px-3 py-2 text-nowrap hover:underline font-bold'>
-                                {tableType === 'project' ? (
-                                     <Link href={`/project/${item.id}`}>
-                                        {item.name}
-                                    </Link>
-                                ) : item.name}
+                                <Link href={`/${tableType}/${item.id}`}>
+                                    {item.name}
+                                </Link>
                             </td>
                             <td className='px-3 py-2'>
                                 <span className={
